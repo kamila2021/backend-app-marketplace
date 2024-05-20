@@ -13,14 +13,15 @@ import java.util.List;
 @NoArgsConstructor
 @AllArgsConstructor
 @Entity
-
+@Table(name = "categoria")
 public class Categoria {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
+    @Column(name = "id_categoria")
+    private Integer id;
 
     private String nombre;
 
-    @OneToMany(mappedBy = "categoria")
-    private List<Producto> productos;
+    @OneToMany(mappedBy = "categoria", cascade = CascadeType.ALL)
+    private List<Servicio> servicios;
 }

@@ -32,7 +32,7 @@ public class ServicioController {
     public List<Servicio> listarServicios() {
         return servicioRepository.findAll();
     }
-
+/*
     @Secured("ROLE_MODERATOR")
     @MutationMapping
     public Servicio crearServicio(@Argument String nombre, @Argument Integer costo, @Argument String direccion) {
@@ -49,6 +49,6 @@ public class ServicioController {
 
         // Guardar el servicio en la base de datos
         return servicioRepository.save(servicio);
-    }
+    }*/
 }
 

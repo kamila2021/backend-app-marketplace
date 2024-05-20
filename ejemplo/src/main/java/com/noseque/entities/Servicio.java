@@ -30,16 +30,26 @@ public class Servicio {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "id_servicio")
     private Integer id;
+
+    @ManyToOne(fetch = FetchType.EAGER)
+    @JoinColumn(name = "id")
+    private Proveedor proveedor;
+
+    @ManyToOne(fetch = FetchType.EAGER)
+    @JoinColumn(name = "id_categoria")
+    private Categoria categoria;
+
+    @OneToMany(mappedBy = "servicio",cascade = CascadeType.ALL)
+    private List<Reserva> reservas;
+
     private String nombre;
-    private Integer costo;
-    private String direccion;
+    private String descripcion;
+    private String foto;
+    private Integer precio;
 
-    @ManyToMany(fetch = FetchType.EAGER)
-    private List<Fotos> fotos;
-    @ManyToMany(fetch = FetchType.EAGER)
-    private List<TipoServicio> tipoServicio;
-
+/*
     @CreatedDate
     @Column(updatable = false, nullable = false)
     private LocalDateTime createdAt;
@@ -47,7 +57,7 @@ public class Servicio {
     @Column(insertable = false)
     private LocalDateTime lastModifiedDate;
 
-
+*/
 }
 
 

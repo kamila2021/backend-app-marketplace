@@ -29,8 +29,9 @@ import java.util.stream.Collectors;
 public class Usuario implements UserDetails, Principal {
 
     @Id
-    @Column(nullable = true) // Permitir valores nulos para la columna id
+    @Column(nullable = true,name = "id_usuario") // Permitir valores nulos para la columna id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
+
     private Integer id;
     private String firstname;
     private String lastname;
@@ -56,6 +57,10 @@ public class Usuario implements UserDetails, Principal {
     @LastModifiedDate
     @Column(insertable = false, nullable = true)
     private LocalDateTime lastModifiedDate;
+
+    @OneToMany(mappedBy = "usuario", cascade = CascadeType.ALL)
+    private List<Reserva> reservas;
+
 
     @Override
     public String getName() {
