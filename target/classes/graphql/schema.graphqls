@@ -1,0 +1,102 @@
+schema {
+    query: Query
+    mutation: Mutation
+}
+
+type Query {
+    listarProductos: [Producto]
+    listarProductoPorId(id: String): Producto
+    listarUsuarios: [Usuario]
+    listarUsuarioPorId(id: Int): Usuario
+    listarServicioPorId(id: Int): Servicio
+    usuario(id: Int!): Usuario  # Cambiado getUsuario a usuario
+    obtenerServicio(servicioId: Int): Servicio
+    listarServicios: [Servicio]
+    listarServiciosPorUsuario(usuarioId: Int): [Servicio]
+    ventasTotalesPorUsuario(usuarioId: Int): Int
+    ventasPorFecha(usuarioId: Int, fechaInicio: String, fechaFin: String): Int
+    topCincoServicios(usuarioId: Int): [Servicio]
+}
+
+type Mutation {
+    addNewUser(usuario: UsuarioInput!): Usuario
+    crearUsuario(usuario: UsuarioInput!): Usuario
+    forgotPassword(email: String): Boolean
+    updatePasswordByCode(code: String, password: String): Boolean
+    crearServicio(servicioDTO: ServicioDTO): Servicio
+    actualizarServicio(servicioDTO: ServicioDTO): Servicio
+    eliminarServicio(servicioId: Int): Servicio
+    evaluarServicio(servicioId: Int, usuarioId: Int, evaluacionDTO: EvaluacionDTO): Servicio
+}
+
+
+type Producto {
+    id: String
+    nombre: String
+    precio: Float
+    cantidad: Int
+    categoria: Categoria
+}
+
+type Categoria {
+    id: Float
+    nombre: String
+    productos: [Producto]
+}
+
+
+type Role {
+    id: Int
+    name: String
+    usuarios:[Usuario]
+}
+
+type Evaluacion {
+    id: Int
+    puntuacion: Int
+    usuario: Usuario
+}
+
+input EvaluacionDTO {
+    id: Int
+    puntuacion: Int
+    usuario: Int
+}
+
+
+input UsuarioInput {
+    firstname: String!
+    lastname: String!
+    username: String!
+    password: String!
+    telephone: String!
+    accountLocked: Boolean
+    enabled: Boolean
+    roles: [Int]
+}
+
+type Usuario {
+    id: Int!
+    firstname: String!
+    lastname: String!
+    username: String!
+    password: String!
+    telephone: String!
+    accountLocked: Boolean
+    enabled: Boolean
+    roles: [Role]
+}
+
+type Servicio {
+    id: Int
+    nombre: String
+    costo: Int
+    direccion: String
+}
+
+input ServicioDTO {
+    id: Int
+    nombre: String
+    costo: Int
+    direccion: String
+}
